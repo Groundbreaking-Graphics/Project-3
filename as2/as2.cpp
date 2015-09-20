@@ -17,6 +17,8 @@ int windowToClose = 0;
 
 bool areWorldAxesDisplayed = true;
 
+char fileName[] = "sphere.obj";
+
 // Vertex and Face data structure sued in the mesh reader
 // Feel free to change them
 typedef struct _point {
@@ -201,6 +203,16 @@ void	display(void)
 		glEnd();
 	}
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1, 0, 0.3f);
+	for (int i = 0; i < faces; i++) {
+		glVertex3f(vertList[faceList[i].v1].x, vertList[faceList[i].v1].y, vertList[faceList[i].v1].z);
+		glVertex3f(vertList[faceList[i].v2].x, vertList[faceList[i].v2].y, vertList[faceList[i].v2].z);
+		glVertex3f(vertList[faceList[i].v3].x, vertList[faceList[i].v3].y, vertList[faceList[i].v3].z);
+	}
+	glEnd();
+
     // (Note that the origin is lower left corner)
     // (Note also that the window spans (0,1) )
     // Finish drawing, update the frame buffer, and swap buffers
@@ -305,6 +317,7 @@ int main(int argc, char* argv[])
     glEnable(GL_DEPTH_TEST);
 
     // Switch to main loop
+	meshReader(fileName, 1);
     glutMainLoop();
     return 0;        
 }
